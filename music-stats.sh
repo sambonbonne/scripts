@@ -12,8 +12,8 @@ metadata() {
     | xargs -n 1 ffprobe 2>&1 \
     | grep "$(echo ${1} | tr [a-z] [A-Z])" \
     | cut -d':' -f 2 \
-    | sed -e 's/^[[:space:]]*//' \
-    | sort | uniq -c
+    | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e 's/[[:space:]](.*)$//' \
+    | sort | uniq -c | sort -bn
 }
 
 echo "    $(list_music | wc -l) *"
